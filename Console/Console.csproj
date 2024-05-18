@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="JassHelper\Blizzardj.txt" />
+    <None Remove="JassHelper\clijasshelper.exe" />
+    <None Remove="JassHelper\common.txt" />
+    <None Remove="JassHelper\sfmpq.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="JassHelper\bin\sfmpq.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="JassHelper\Blizzardj.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="JassHelper\clijasshelper.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="JassHelper\common.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="JassHelper\sfmpq.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JASS-Optimizer\JASS-Optimizer.csproj" />
+  </ItemGroup>
+
+</Project>

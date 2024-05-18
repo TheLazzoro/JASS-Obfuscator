@@ -6,18 +6,26 @@ using System.Threading.Tasks;
 
 namespace JassOptimizer
 {
-    internal static class JassLexer
+    public class JassLexer
     {
-        public static List<Tuple<JassSymbol, string>> Run(string script)
+        private string _script;
+
+        public JassLexer(string script)
         {
+            _script = script;
+        }
+
+        public string Optimize()
+        {
+            string optimized = string.Empty;
             var list = new List<Tuple<JassSymbol, string>>();
 
-            int scriptLength = script.Length;
+            int scriptLength = _script.Length;
             int offset = 0;
             int i = 0;
             while (i < scriptLength)
             {
-                char c = script[i];
+                char c = _script[i];
 
                 switch (c)
                 {
@@ -34,7 +42,7 @@ namespace JassOptimizer
                 i++;
             }
 
-            return list;
+            return optimized;
         }
     }
 }
