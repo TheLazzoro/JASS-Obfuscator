@@ -18,6 +18,9 @@ namespace JASS_Optimizer
 
         internal void AddBlock(JassBlock jassBlock)
         {
+            _jassBlocks.Add(jassBlock);
+
+            // handle function/variable references
             string identifier = jassBlock.Block;
             List<JassBlock> blocks;
             if (!references.TryGetValue(identifier, out blocks))
@@ -33,11 +36,9 @@ namespace JASS_Optimizer
         {
             StringBuilder optimized = new StringBuilder();
 
-            foreach (var reference in references)
+            foreach (var jassBlock in _jassBlocks)
             {
-                var list = reference.Value;
-                var block = list[0];
-                optimized.Append(block.Block);
+                optimized.Append(jassBlock.Block);
             }
 
             return optimized.ToString();

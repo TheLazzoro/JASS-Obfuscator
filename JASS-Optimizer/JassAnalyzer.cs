@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using JASS_Optimizer;
 
@@ -63,14 +64,14 @@ namespace JassOptimizer
                     keywordIndexEnd = i;
                 }
 
-                if (hasKeyword) // We check the scanned keyword
+                if (hasKeyword || EndOfScript(i)) // We check the scanned keyword
                 {
                     hasKeyword = false;
                     int length = keywordIndexEnd - keywordIndexStart;
                     string keyword = _script.Substring(keywordIndexStart, length);
 
                     // TODO: Needs to check for all definitions from common.j and blizzard.j
-                    if (!IsJassKeyword(keyword))
+                    if (!IsJassKeyword(keyword) || EndOfScript(i))
                     {
                         // We have determined that the keyword is eligible for obfuscation
 
@@ -90,6 +91,11 @@ namespace JassOptimizer
             }
 
             return jassManipulator.GetOptimizedJASS();
+        }
+
+        private bool EndOfScript(int index)
+        {
+            return index == _script.Length - 1;
         }
 
         private bool IsSplittingSymbol(char c)
