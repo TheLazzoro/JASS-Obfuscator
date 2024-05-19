@@ -12,17 +12,15 @@ namespace JassOptimizer
     public class JassAnalyzer
     {
         private string _script;
-        private string _blizzardJScript;
         private JassManipulator jassManipulator = new JassManipulator();
-        private CommonJ _commonJ;
+        private JassDefinitions _jassDefinitions;
 
         public JassAnalyzer(string script, string pathCommonJ, string pathBlizzardJ)
         {
             _script = script;
             string[] commonJScript = File.ReadAllLines(pathCommonJ);
-            _commonJ = new CommonJ(commonJScript);
-
-            //_blizzardJScript = File.ReadAllText(pathBlizzardJ);
+            string[] blizzardJScript = File.ReadAllLines(pathBlizzardJ);
+            _jassDefinitions = new JassDefinitions(commonJScript, blizzardJScript);
         }
 
         public string Optimize()
