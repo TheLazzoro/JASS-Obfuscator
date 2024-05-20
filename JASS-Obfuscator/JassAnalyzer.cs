@@ -149,9 +149,10 @@ namespace JassObfuscator
 
                     if (hasStringLiteral) // replace 'ExecuteFunc' string with the transformed function name.
                     {
+                        bool isExecuteFunc = _script.Substring(stringLiteralStart - 13, 11) == "ExecuteFunc";
                         length = stringLiteralEnd - stringLiteralStart;
                         keyword = _script.Substring(stringLiteralStart, length);
-                        stringLiteralIsFunctionCall = _functionIdentifiers.Contains(keyword);
+                        stringLiteralIsFunctionCall = _functionIdentifiers.Contains(keyword) && isExecuteFunc;
 
                         if (stringLiteralIsFunctionCall) // is string in 'ExecuteFunc' call
                         {

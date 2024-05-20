@@ -27,7 +27,8 @@ namespace JassObfuscator
                 var line = lines[i];
                 line = line.Trim();
                 line = Utility.RemoveExcessWhitespace(line);
-                if (line.Length > 0 && !line.StartsWith("//"))
+                //if (line.Length > 0 && !line.StartsWith("//"))
+                if (!line.StartsWith("//"))
                 {
                     sb.Append(line + Environment.NewLine);
                 }
