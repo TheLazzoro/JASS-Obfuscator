@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JASS-Optimizer", "JASS-Optimizer\JASS-Optimizer.csproj", "{C2BCAB24-EB89-440E-9457-5F9C79A17DDC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JASS-Obfuscator", "JASS-Obfuscator\JASS-Obfuscator.csproj", "{C2BCAB24-EB89-440E-9457-5F9C79A17DDC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "Console\Console.csproj", "{B4D0908D-A480-4063-9917-4659F03B2662}"
 EndProject
