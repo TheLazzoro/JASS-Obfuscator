@@ -1,3 +1,4 @@
+using JassOptimizer;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -67,31 +68,40 @@ namespace JASS_Optimizer
         private string GenerateObfuscatedName()
         {
             string name = string.Empty;
+            bool validName = false;
 
-            char letter = chars[0];
-            letter = NextLetter(letter);
-            chars[0] = letter;
-
-            int index = 1;
-            while (letter == 'Z' && index < chars.Count)
+            while (!validName)
             {
-                letter = chars[index];
+                char letter = chars[0];
                 letter = NextLetter(letter);
-                chars[index] = letter;
+                chars[0] = letter;
 
-                index++;
-            }
+                int index = 1;
+                while (letter == 'Z' && index < chars.Count)
+                {
+                    letter = chars[index];
+                    letter = NextLetter(letter);
+                    chars[index] = letter;
 
-            bool addNew = chars[chars.Count - 1] == 'Z';
+                    index++;
+                }
 
-            for (int i = 0; i < chars.Count; i++)
-            {
-                name += chars[i];
-            }
+                bool addNew = chars[chars.Count - 1] == 'Z';
 
-            if (addNew)
-            {
-                chars.Add('a');
+                for (int i = 0; i < chars.Count; i++)
+                {
+                    name += chars[i];
+                }
+
+                if (addNew)
+                {
+                    chars.Add('a');
+                }
+
+                if(!JassSymbols.IsJassKeyword(name))
+                {
+                    validName = true;
+                }
             }
 
             return name;

@@ -51,6 +51,41 @@ namespace JassOptimizer
                     }
                 }
 
+                // skip string literals
+                if (i > 1 && JassSymbols.IsStringLiteral(c))
+                {
+                    i++;
+                    c = _script[i];
+                    while (!JassSymbols.IsStringLiteral(c))
+                    {
+                        i++;
+                        c = _script[i];
+                        if(c == '\\') // escape char
+                        {
+                            i += 2;
+                            c = _script[i];
+                        }
+
+                        keywordIndexStart = i;
+                        keywordIndexEnd = i;
+                    }
+                }
+
+                // skip FourCC literals
+                if (i > 0 && JassSymbols.IsFourCCLiteral(c))
+                {
+                    i++;
+                    c = _script[i];
+                    while (!JassSymbols.IsFourCCLiteral(c))
+                    {
+                        c = _script[i];
+                        i++;
+                        keywordIndexStart = i;
+                        keywordIndexEnd = i;
+                    }
+                }
+
+
                 if (!isScanningKeyword)
                 {
                     keywordIndexStart = i;
@@ -75,7 +110,7 @@ namespace JassOptimizer
                     bool isJassDefinition = _jassDefinitions.Keywords.Contains(keyword);
 
                     // TODO: Needs to check for all definitions from common.j and blizzard.j
-                    if (( !isJassKeyword && !isJassDefinition && !isRawNumber) || IsEndOfScript(i))
+                    if ((!isJassKeyword && !isJassDefinition && !isRawNumber) || IsEndOfScript(i))
                     {
                         // We have determined that the keyword is eligible for obfuscation
 

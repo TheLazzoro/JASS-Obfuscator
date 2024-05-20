@@ -20,6 +20,9 @@
                 case '=':
                 case ',':
                 case '.':
+                case '!':
+                case '\"':
+                case '\'':
                 case '\r':
                 case '\n':
                 case '\t':
@@ -72,6 +75,9 @@
                 case "type":
                 case ",":
                 case ".":
+                case "!":
+                case "\"":
+                case "\'":
                 case "==":
                 case "=":
                 case "!=":
@@ -101,5 +107,22 @@
             return false;
         }
 
+        internal static bool IsStringLiteral(char c)
+        {
+            if (c == '\"')
+            {
+                return true;
+            }
+            return false;
+        }
+
+        internal static bool IsFourCCLiteral(char c)
+        {
+            if (c == '\'')
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

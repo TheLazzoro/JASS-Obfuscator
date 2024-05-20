@@ -34,6 +34,29 @@ namespace JASS_Optimizer
 
             #endregion
 
+            #region Reserved keywords
+
+            AddReservedKeyword("InitCustomTriggers");
+            AddReservedKeyword("RunInitializationTriggers");
+            AddReservedKeyword("InitCustomPlayerSlots");
+            AddReservedKeyword("InitCustomTeams");
+            AddReservedKeyword("InitAllyPriorities");
+            AddReservedKeyword("main");
+            AddReservedKeyword("InitSounds");
+            AddReservedKeyword("CreateRegions");
+            AddReservedKeyword("CreateCameras");
+            AddReservedKeyword("CreateAllItems");
+            AddReservedKeyword("CreateAllUnits");
+            AddReservedKeyword("InitGlobals");
+            AddReservedKeyword("InitCustomTriggers");
+            AddReservedKeyword("RunInitializationTriggers");
+            AddReservedKeyword("config");
+            AddReservedKeyword("InitCustomPlayerSlots");
+            AddReservedKeyword("InitCustomTeams");
+            AddReservedKeyword("InitAllyPriorities");
+
+            #endregion
+
 
             for (int i = 0; i < commonJLines.Length; i++)
             {
@@ -163,6 +186,11 @@ namespace JASS_Optimizer
         {
             Keywords.Add(keyword);
             TypeWords.Add(keyword);
+        }
+
+        private void AddReservedKeyword(string keyword)
+        {
+            Keywords.Add(keyword);
         }
     }
 }
