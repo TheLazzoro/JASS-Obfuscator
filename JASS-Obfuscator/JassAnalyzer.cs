@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 
@@ -11,6 +12,8 @@ namespace JassObfuscator
         private JassDefinitions _jassDefinitions;
         private IFormatProvider _formatProvider;
 
+        private HashSet<string> _functionIdentifiers;
+
         internal JassAnalyzer(string script, string pathCommonJ, string pathBlizzardJ)
         {
             _script = script;
@@ -19,6 +22,29 @@ namespace JassObfuscator
             _jassDefinitions = new JassDefinitions(commonJScript, blizzardJScript);
             _jassManipulator = new JassManipulator(_jassDefinitions);
             _formatProvider = new CultureInfo("en-US");
+            _functionIdentifiers = new HashSet<string>();
+
+            // Collect all function declarations.
+            string[] scriptLines = _script.Split(
+                new string[] { Environment.NewLine },
+                StringSplitOptions.None);
+            string functionKeyword = "function ";
+            for (int i = 0; i < scriptLines.Length; i++)
+            {
+                string line = scriptLines[i].Trim();
+                if (line.StartsWith(functionKeyword))
+                {
+                    int index = functionKeyword.Length;
+                    while (index < line.Length && !JassSymbols.IsSplittingSymbol(line[index]))
+                    {
+                        index++;
+                    }
+
+                    int length = index - functionKeyword.Length;
+                    string fuctionName = line.Substring(functionKeyword.Length, length);
+                    _functionIdentifiers.Add(fuctionName);
+                }
+            }
         }
 
         internal string Obfuscate()
@@ -30,6 +56,10 @@ namespace JassObfuscator
             bool hasKeyword = false;
             int keywordIndexStart = 0;
             int keywordIndexEnd = 0;
+
+            int stringLiteralStart = 0;
+            int stringLiteralEnd = 0;
+            bool hasStringLiteral = false;
 
             while (i < scriptLength)
             {
@@ -52,7 +82,10 @@ namespace JassObfuscator
                 // skip string literals
                 if (i > 1 && JassSymbols.IsStringLiteral(c))
                 {
+                    hasStringLiteral = true;
                     i++;
+                    stringLiteralStart = i;
+                    stringLiteralEnd = i;
                     c = _script[i];
                     while (!JassSymbols.IsStringLiteral(c))
                     {
@@ -63,6 +96,7 @@ namespace JassObfuscator
 
                         i++;
                         c = _script[i];
+                        stringLiteralEnd = i;
                         keywordIndexStart = i;
                         keywordIndexEnd = i;
                     }
@@ -96,7 +130,7 @@ namespace JassObfuscator
                     keywordIndexEnd = i;
                 }
 
-                if (hasKeyword || IsEndOfScript(i)) // We check the scanned keyword
+                if (hasKeyword || hasStringLiteral || IsEndOfScript(i)) // We check the scanned keyword
                 {
                     hasKeyword = false;
                     int length = keywordIndexEnd - keywordIndexStart;
@@ -111,15 +145,34 @@ namespace JassObfuscator
 
                     bool isJassKeyword = JassSymbols.IsJassKeyword(keyword);
                     bool isJassDefinition = _jassDefinitions.Keywords.Contains(keyword);
+                    bool stringLiteralIsFunctionCall = true;
 
-                    // TODO: Needs to check for all definitions from common.j and blizzard.j
-                    if ((!isJassKeyword && !isJassDefinition && !isRawNumber) || IsEndOfScript(i))
+                    if (hasStringLiteral) // replace 'ExecuteFunc' string with the transformed function name.
+                    {
+                        length = stringLiteralEnd - stringLiteralStart;
+                        keyword = _script.Substring(stringLiteralStart, length);
+                        stringLiteralIsFunctionCall = _functionIdentifiers.Contains(keyword);
+
+                        if (stringLiteralIsFunctionCall) // is string in 'ExecuteFunc' call
+                        {
+                            keywordIndexStart -= length;
+                            keywordIndexEnd -= length;
+                            //offset = stringLiteralStart - 1;
+                        }
+                    }
+
+                    if ((!isJassKeyword && !isJassDefinition && !isRawNumber && stringLiteralIsFunctionCall) || IsEndOfScript(i))
                     {
                         // We have determined that the keyword is eligible for obfuscation
 
                         length = keywordIndexStart - offset;
                         string preceedingPart = _script.Substring(offset, length);
                         offset = keywordIndexEnd;
+
+                        if(hasStringLiteral && stringLiteralIsFunctionCall)
+                        {
+                            offset = stringLiteralEnd;
+                        }
 
                         JassBlock preceedingBlock = new JassBlock(preceedingPart, false);
                         _jassManipulator.AddBlock(preceedingBlock);
@@ -130,6 +183,8 @@ namespace JassObfuscator
                             _jassManipulator.AddBlock(keywordBlock);
                         }
                     }
+
+                    hasStringLiteral = false;
                 }
 
                 i++;

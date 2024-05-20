@@ -5,6 +5,9 @@ A basic obfuscation tool for JASS scripts in WC3.
 [![NuGet version](https://img.shields.io/nuget/v/JASS-Obfuscator.svg)](https://www.nuget.org/packages/JASS-Obfuscator/)
 
 ## Usage:
+
+Does not support vJass. Use JassHelper to transform vJass to Jass before passing the string to this obfuscator.
+
 ``` cs
 using JassObfuscator;
 

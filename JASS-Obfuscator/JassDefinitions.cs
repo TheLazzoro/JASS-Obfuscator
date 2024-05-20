@@ -43,6 +43,7 @@ namespace JassObfuscator
             AddReservedKeyword("CreateCameras");
             AddReservedKeyword("CreateAllItems");
             AddReservedKeyword("CreateAllUnits");
+            AddReservedKeyword("CreateAllDestructables");
             AddReservedKeyword("InitGlobals");
             AddReservedKeyword("InitCustomTriggers");
             AddReservedKeyword("RunInitializationTriggers");
