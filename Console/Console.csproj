@@ -12,6 +12,7 @@
     <None Remove="JassHelper\clijasshelper.exe" />
     <None Remove="JassHelper\common.txt" />
     <None Remove="JassHelper\jasshelper.conf" />
+    <None Remove="JassHelper\jasshelper.exe" />
     <None Remove="JassHelper\pjass.exe" />
     <None Remove="JassHelper\sfmpq.dll" />
   </ItemGroup>
@@ -30,6 +31,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="JassHelper\common.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="JassHelper\jasshelper.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="JassHelper\sfmpq.dll">

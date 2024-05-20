@@ -13,6 +13,7 @@ namespace JassObfuscator
         private IFormatProvider _formatProvider;
 
         private HashSet<string> _functionIdentifiers;
+        private HashSet<string> _nativeImports;
 
         internal JassAnalyzer(string script, string pathCommonJ, string pathBlizzardJ)
         {
@@ -23,6 +24,7 @@ namespace JassObfuscator
             _jassManipulator = new JassManipulator(_jassDefinitions);
             _formatProvider = new CultureInfo("en-US");
             _functionIdentifiers = new HashSet<string>();
+            _nativeImports = new HashSet<string>();
 
             // Collect all function declarations.
             string[] scriptLines = _script.Split(
@@ -136,6 +138,29 @@ namespace JassObfuscator
                     int length = keywordIndexEnd - keywordIndexStart;
                     string keyword = _script.Substring(keywordIndexStart, length);
 
+                    if(keyword == "native") // in case of imported functions from common.ai
+                    {
+                        i++;
+                        c = _script[i];
+                        int nativeStart = i;
+                        while(!JassSymbols.IsSplittingSymbol(c))
+                        {
+                            c = _script[i];
+                            i++;
+                        }
+
+                        keyword = _script.Substring(nativeStart, i - nativeStart -1);
+                        _nativeImports.Add(keyword);
+
+                        while (!JassSymbols.IsNewline(c))
+                        {
+                            c = _script[i];
+                            i++;
+                        }
+
+                        continue;
+                    }
+
                     bool isRawNumber = float.TryParse(keyword, out float val);
                     if (keyword.StartsWith("0x") || keyword.StartsWith("$"))
                     {
@@ -144,6 +169,7 @@ namespace JassObfuscator
                     }
 
                     bool isJassKeyword = JassSymbols.IsJassKeyword(keyword);
+                    bool isNativeImport = _nativeImports.Contains(keyword);
                     bool isJassDefinition = _jassDefinitions.Keywords.Contains(keyword);
                     bool stringLiteralIsFunctionCall = true;
 
@@ -162,7 +188,7 @@ namespace JassObfuscator
                         }
                     }
 
-                    if ((!isJassKeyword && !isJassDefinition && !isRawNumber && stringLiteralIsFunctionCall) || IsEndOfScript(i))
+                    if ((!isJassKeyword && !isNativeImport && !isJassDefinition && !isRawNumber && stringLiteralIsFunctionCall) || IsEndOfScript(i))
                     {
                         // We have determined that the keyword is eligible for obfuscation
 
