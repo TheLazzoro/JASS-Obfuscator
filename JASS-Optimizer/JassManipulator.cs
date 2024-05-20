@@ -36,12 +36,83 @@ namespace JASS_Optimizer
         {
             StringBuilder optimized = new StringBuilder();
 
+            // obfuscate blocks
+            chars.Add('a'); // init
+            foreach (var jassblock in references)
+            {
+                var list = jassblock.Value;
+                if (!list[0].Obfuscate)
+                {
+                    continue;
+                }
+
+                string obfuscatedName = GenerateObfuscatedName();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    var block = list[i];
+                    block.Block = obfuscatedName;
+                }
+            }
+
+            // Append to script
             foreach (var jassBlock in _jassBlocks)
             {
                 optimized.Append(jassBlock.Block);
             }
 
             return optimized.ToString();
+        }
+
+        List<char> chars = new List<char>();
+        private string GenerateObfuscatedName()
+        {
+            string name = string.Empty;
+
+            char letter = chars[0];
+            letter = NextLetter(letter);
+            chars[0] = letter;
+
+            int index = 1;
+            while (letter == 'Z' && index < chars.Count)
+            {
+                letter = chars[index];
+                letter = NextLetter(letter);
+                chars[index] = letter;
+
+                index++;
+            }
+
+            bool addNew = chars[chars.Count - 1] == 'Z';
+
+            for (int i = 0; i < chars.Count; i++)
+            {
+                name += chars[i];
+            }
+
+            if (addNew)
+            {
+                chars.Add('a');
+            }
+
+            return name;
+        }
+
+        private char NextLetter(char letter)
+        {
+            if (letter == 'z')
+            {
+                letter = 'A';
+            }
+            else if (letter == 'Z')
+            {
+                letter = 'a';
+            }
+            else
+            {
+                letter = (char)(((int)letter) + 1);
+            }
+
+            return letter;
         }
     }
 }

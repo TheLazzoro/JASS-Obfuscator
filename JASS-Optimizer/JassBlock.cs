@@ -8,16 +8,16 @@ namespace JASS_Optimizer
     /// <summary>
     /// Represents a block of code to be appended in the optimized script.
     /// </summary>
-    public class JassBlock
+    internal class JassBlock
     {
-        internal string Block { get; private set; }
-        private bool _obfuscate;
+        internal string Block { get; set; }
+        internal bool Obfuscate { get; }
         private bool _isLocalVariable;
 
-        public JassBlock(string block, bool obfuscate, bool isLocalVariable)
+        internal JassBlock(string block, bool obfuscate, bool isLocalVariable)
         {
             Block = block;
-            _obfuscate = obfuscate;
+            Obfuscate = obfuscate;
             _isLocalVariable = isLocalVariable;
         }
     }

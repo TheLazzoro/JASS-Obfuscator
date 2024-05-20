@@ -70,8 +70,12 @@ namespace JassOptimizer
                     int length = keywordIndexEnd - keywordIndexStart;
                     string keyword = _script.Substring(keywordIndexStart, length);
 
+                    bool isRawNumber = float.TryParse(keyword, out float val);
+                    bool isJassKeyword = JassSymbols.IsJassKeyword(keyword);
+                    bool isJassDefinition = _jassDefinitions.Keywords.Contains(keyword);
+
                     // TODO: Needs to check for all definitions from common.j and blizzard.j
-                    if (!JassSymbols.IsJassKeyword(keyword) || IsEndOfScript(i))
+                    if (( !isJassKeyword && !isJassDefinition && !isRawNumber) || IsEndOfScript(i))
                     {
                         // We have determined that the keyword is eligible for obfuscation
 
@@ -82,8 +86,11 @@ namespace JassOptimizer
                         JassBlock preceedingBlock = new JassBlock(preceedingPart, false, false);
                         jassManipulator.AddBlock(preceedingBlock);
 
-                        JassBlock keywordBlock = new JassBlock(keyword, true, false);
-                        jassManipulator.AddBlock(keywordBlock);
+                        if (!IsEndOfScript(i))
+                        {
+                            JassBlock keywordBlock = new JassBlock(keyword, true, false);
+                            jassManipulator.AddBlock(keywordBlock);
+                        }
                     }
                 }
 

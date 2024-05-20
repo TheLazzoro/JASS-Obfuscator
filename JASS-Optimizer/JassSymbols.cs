@@ -19,6 +19,7 @@
                 case ']':
                 case '=':
                 case ',':
+                case '.':
                 case '\r':
                 case '\n':
                 case '\t':
@@ -70,6 +71,7 @@
                 case "true":
                 case "type":
                 case ",":
+                case ".":
                 case "==":
                 case "=":
                 case "!=":
