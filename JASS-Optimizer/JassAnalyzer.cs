@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace JassOptimizer
         private string _script;
         private JassManipulator jassManipulator = new JassManipulator();
         private JassDefinitions _jassDefinitions;
+        private IFormatProvider _formatProvider;
 
         internal JassAnalyzer(string script, string pathCommonJ, string pathBlizzardJ)
         {
@@ -21,6 +23,7 @@ namespace JassOptimizer
             string[] commonJScript = File.ReadAllLines(pathCommonJ);
             string[] blizzardJScript = File.ReadAllLines(pathBlizzardJ);
             _jassDefinitions = new JassDefinitions(commonJScript, blizzardJScript);
+            _formatProvider = new CultureInfo("en-US");
         }
 
         internal string Obfuscate()
@@ -104,7 +107,7 @@ namespace JassOptimizer
                     int length = keywordIndexEnd - keywordIndexStart;
                     string keyword = _script.Substring(keywordIndexStart, length);
 
-                    bool isRawNumber = float.TryParse(keyword, out float val);
+                    bool isRawNumber = float.TryParse(keyword, out float val) || int.TryParse(keyword.Replace("0x", string.Empty), NumberStyles.HexNumber, _formatProvider, out int val2);
                     bool isJassKeyword = JassSymbols.IsJassKeyword(keyword);
                     bool isJassDefinition = _jassDefinitions.Keywords.Contains(keyword);
 

@@ -18,23 +18,24 @@ namespace JASS_Optimizer
         {
             var analyzer = new JassAnalyzer(script, pathCommonJ, pathBlizzardJ);
             script = analyzer.Obfuscate();
-            var lines = script.Split(
-                new string[] { Environment.NewLine },
-                StringSplitOptions.None
-            );
+            //var lines = script.Split(
+            //    new string[] { Environment.NewLine },
+            //    StringSplitOptions.None
+            //);
 
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < lines.Length; i++)
-            {
-                var line = lines[i];
-                line = line.Trim();
-                if (!line.StartsWith("//"))
-                {
-                    sb.Append(line + Environment.NewLine);
-                }
-            }
+            //StringBuilder sb = new StringBuilder();
+            //for (int i = 0; i < lines.Length; i++)
+            //{
+            //    var line = lines[i];
+            //    line = line.Trim();
+            //    if (!line.StartsWith("//"))
+            //    {
+            //        sb.Append(line + Environment.NewLine);
+            //    }
+            //}
 
-            return sb.ToString();
+            return script;
+            //return sb.ToString();
         }
     }
 }

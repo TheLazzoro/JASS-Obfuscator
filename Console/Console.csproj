@@ -11,10 +11,15 @@
     <None Remove="JassHelper\Blizzardj.txt" />
     <None Remove="JassHelper\clijasshelper.exe" />
     <None Remove="JassHelper\common.txt" />
+    <None Remove="JassHelper\jasshelper.conf" />
+    <None Remove="JassHelper\pjass.exe" />
     <None Remove="JassHelper\sfmpq.dll" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="JassHelper\jasshelper.conf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="JassHelper\bin\sfmpq.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -34,6 +39,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\JASS-Optimizer\JASS-Optimizer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="JassHelper\pjass.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

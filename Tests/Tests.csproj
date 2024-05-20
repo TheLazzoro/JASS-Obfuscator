@@ -10,23 +10,35 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="JassHelper\bin\sfmpq.dll" />
-    <None Remove="JassHelper\Blizzardj.txt" />
-    <None Remove="JassHelper\clijasshelper.exe" />
-    <None Remove="JassHelper\common.txt" />
+    <None Remove="Resources\JassHelper\bin\sfmpq.dll" />
+    <None Remove="Resources\JassHelper\Blizzardj.txt" />
+    <None Remove="Resources\JassHelper\clijasshelper.exe" />
+    <None Remove="Resources\JassHelper\common.txt" />
+    <None Remove="Resources\JassHelper\jasshelper.conf" />
+    <None Remove="Resources\JassHelper\pjass.exe" />
+    <None Remove="Resources\war3map1.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="JassHelper\bin\sfmpq.dll">
+    <Content Include="Resources\JassHelper\bin\sfmpq.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="JassHelper\Blizzardj.txt">
+    <Content Include="Resources\JassHelper\jasshelper.conf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="JassHelper\clijasshelper.exe">
+    <Content Include="Resources\JassHelper\sfmpq.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="JassHelper\common.txt">
+    <Content Include="Resources\JassHelper\Blizzardj.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\JassHelper\clijasshelper.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\JassHelper\common.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Scripts\war3map1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -36,6 +48,16 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.2.10" />
     <PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JASS-Optimizer\JASS-Optimizer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\JassHelper\pjass.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
