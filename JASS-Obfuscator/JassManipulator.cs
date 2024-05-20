@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace JassOptimizer
+namespace JassObfuscator
 {
     /// <summary>
     /// Keeps a collection of JASS blocks in the script,
     /// and is responsible for obfuscating function- and variable names.
     /// </summary>
-    public class JassManipulator
+    internal class JassManipulator
     {
         private List<JassBlock> _jassBlocks = new List<JassBlock>();
         private Dictionary<string, List<JassBlock>> references = new Dictionary<string, List<JassBlock>>();

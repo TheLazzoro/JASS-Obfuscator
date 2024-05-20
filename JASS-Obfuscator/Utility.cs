@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace JassOptimizer
+namespace JassObfuscator
 {
     internal static class Utility
     {

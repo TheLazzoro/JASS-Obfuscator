@@ -1,6 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Diagnostics;
-using JassOptimizer;
+using JassObfuscator;
 
 string currentDir = Directory.GetCurrentDirectory();
 string jasshelper = Path.Combine(currentDir, "JassHelper/clijasshelper.exe");

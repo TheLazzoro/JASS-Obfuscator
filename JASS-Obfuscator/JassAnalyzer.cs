@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.IO;
 
-namespace JassOptimizer
+namespace JassObfuscator
 {
     internal class JassAnalyzer
     {

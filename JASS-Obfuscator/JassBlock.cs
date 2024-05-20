@@ -1,4 +1,4 @@
-namespace JassOptimizer
+namespace JassObfuscator
 {
     /// <summary>
     /// Represents a block of code to be appended in the optimized script.

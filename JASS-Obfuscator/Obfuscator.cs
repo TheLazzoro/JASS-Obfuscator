@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace JassOptimizer
+namespace JassObfuscator
 {
     public static class Obfuscator
     {

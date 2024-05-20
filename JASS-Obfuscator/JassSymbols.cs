@@ -1,4 +1,4 @@
-﻿namespace JassOptimizer
+﻿namespace JassObfuscator
 {
     internal static class JassSymbols
     {

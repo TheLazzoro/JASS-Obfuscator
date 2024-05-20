@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace JassOptimizer
+namespace JassObfuscator
 {
     internal class JassDefinitions
     {

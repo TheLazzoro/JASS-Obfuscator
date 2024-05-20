@@ -8,6 +8,7 @@
     <PackageId>JASS-Obfuscator</PackageId>
     <Authors>LazZ</Authors>
     <PackageProjectUrl>https://github.com/TheLazzoro/JASS-Obfuscator</PackageProjectUrl>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
 </Project>
