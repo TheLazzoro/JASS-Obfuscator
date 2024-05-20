@@ -4,7 +4,10 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>JASS_Optimizer</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Title>WC3 JASS Optimizer</Title>
+    <Title>WC3 JASS Obfuscator</Title>
+    <PackageId>JASS-Obfuscator</PackageId>
+    <Authors>LazZ</Authors>
+    <PackageProjectUrl>https://github.com/TheLazzoro/JASS-Obfuscator</PackageProjectUrl>
   </PropertyGroup>
 
 </Project>
