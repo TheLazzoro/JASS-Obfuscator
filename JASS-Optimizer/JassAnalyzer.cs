@@ -13,7 +13,7 @@ namespace JassOptimizer
     internal class JassAnalyzer
     {
         private string _script;
-        private JassManipulator jassManipulator = new JassManipulator();
+        private JassManipulator _jassManipulator;
         private JassDefinitions _jassDefinitions;
         private IFormatProvider _formatProvider;
 
@@ -23,6 +23,7 @@ namespace JassOptimizer
             string[] commonJScript = File.ReadAllLines(pathCommonJ);
             string[] blizzardJScript = File.ReadAllLines(pathBlizzardJ);
             _jassDefinitions = new JassDefinitions(commonJScript, blizzardJScript);
+            _jassManipulator = new JassManipulator(_jassDefinitions);
             _formatProvider = new CultureInfo("en-US");
         }
 
@@ -120,13 +121,13 @@ namespace JassOptimizer
                         string preceedingPart = _script.Substring(offset, length);
                         offset = keywordIndexEnd;
 
-                        JassBlock preceedingBlock = new JassBlock(preceedingPart, false, false);
-                        jassManipulator.AddBlock(preceedingBlock);
+                        JassBlock preceedingBlock = new JassBlock(preceedingPart, false);
+                        _jassManipulator.AddBlock(preceedingBlock);
 
                         if (!IsEndOfScript(i))
                         {
-                            JassBlock keywordBlock = new JassBlock(keyword, true, false);
-                            jassManipulator.AddBlock(keywordBlock);
+                            JassBlock keywordBlock = new JassBlock(keyword, true);
+                            _jassManipulator.AddBlock(keywordBlock);
                         }
                     }
                 }
@@ -134,7 +135,7 @@ namespace JassOptimizer
                 i++;
             }
 
-            return jassManipulator.GetOptimizedJASS();
+            return _jassManipulator.GetOptimizedJASS();
         }
 
         private bool IsEndOfScript(int index)

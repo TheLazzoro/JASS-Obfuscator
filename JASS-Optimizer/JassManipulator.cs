@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace JASS_Optimizer
@@ -16,6 +17,12 @@ namespace JASS_Optimizer
     {
         private List<JassBlock> _jassBlocks = new List<JassBlock>();
         private Dictionary<string, List<JassBlock>> references = new Dictionary<string, List<JassBlock>>();
+        private JassDefinitions _jassDefinitions;
+
+        internal JassManipulator(JassDefinitions jassDefinitions)
+        {
+            _jassDefinitions = jassDefinitions;
+        }
 
         internal void AddBlock(JassBlock jassBlock)
         {
@@ -42,7 +49,7 @@ namespace JASS_Optimizer
             foreach (var jassblock in references)
             {
                 var list = jassblock.Value;
-                if (!list[0].Obfuscate)
+                if (!list[0].Obfuscate || list[0].WasObfuscated)
                 {
                     continue;
                 }
@@ -52,6 +59,7 @@ namespace JASS_Optimizer
                 {
                     var block = list[i];
                     block.Block = obfuscatedName;
+                    block.WasObfuscated = true;
                 }
             }
 
@@ -98,7 +106,7 @@ namespace JASS_Optimizer
                     chars.Add('a');
                 }
 
-                if(!JassSymbols.IsJassKeyword(name))
+                if(!JassSymbols.IsJassKeyword(name) && !_jassDefinitions.Keywords.Contains(name))
                 {
                     validName = true;
                 }

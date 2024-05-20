@@ -12,13 +12,12 @@ namespace JASS_Optimizer
     {
         internal string Block { get; set; }
         internal bool Obfuscate { get; }
-        private bool _isLocalVariable;
+        internal bool WasObfuscated { get; set; }
 
-        internal JassBlock(string block, bool obfuscate, bool isLocalVariable)
+        internal JassBlock(string block, bool obfuscate)
         {
             Block = block;
             Obfuscate = obfuscate;
-            _isLocalVariable = isLocalVariable;
         }
     }
 }

@@ -72,6 +72,7 @@ namespace JASS_Optimizer
         private void PrepareLine(string line)
         {
             line = line.Trim();
+            line = line + " "; // hack. padding when the keyword has the last char in the line
 
             // remove excess whitespace from line
             StringBuilder sb = new StringBuilder();
