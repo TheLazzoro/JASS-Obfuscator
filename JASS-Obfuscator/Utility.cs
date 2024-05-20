@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 
-namespace JASS_Optimizer
+namespace JassOptimizer
 {
     internal static class Utility
     {

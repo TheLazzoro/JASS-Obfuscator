@@ -1,20 +1,18 @@
-﻿using JassOptimizer;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Text;
 
-namespace JASS_Optimizer
+namespace JassOptimizer
 {
-    public static class Optimizer
+    public static class Obfuscator
     {
         /// <summary>
-        /// Optimizes the input jass script
+        /// Obfuscates the input jass script.
         /// </summary>
-        /// <param name="script">Input script to be optimized</param>
+        /// <param name="script">Input script to be obfuscated</param>
         /// <param name="pathCommonJ">File path to Common.j</param>
         /// <param name="pathBlizzardJ">File path to Blizzard.j</param>
-        /// <returns>Optimized script</returns>
-        public static string Optimize(string script, string pathCommonJ, string pathBlizzardJ)
+        /// <returns>Obfuscated script</returns>
+        public static string Obfuscate(string script, string pathCommonJ, string pathBlizzardJ)
         {
             var analyzer = new JassAnalyzer(script, pathCommonJ, pathBlizzardJ);
             script = analyzer.Obfuscate();

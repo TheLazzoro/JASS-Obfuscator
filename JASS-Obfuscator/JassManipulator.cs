@@ -1,13 +1,7 @@
-using JassOptimizer;
-using System;
 using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace JASS_Optimizer
+namespace JassOptimizer
 {
     /// <summary>
     /// Keeps a collection of JASS blocks in the script,

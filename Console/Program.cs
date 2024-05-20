@@ -1,6 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Diagnostics;
-using JASS_Optimizer;
 using JassOptimizer;
 
 string currentDir = Directory.GetCurrentDirectory();
@@ -10,7 +9,7 @@ string PathBlizzardJ = Path.Combine(currentDir, "JassHelper/Blizzardj.txt");
 string PathScript = Path.Combine(currentDir, "C:\\Users\\Lasse\\Desktop\\war3map.j");
 
 string script = File.ReadAllText(PathScript);
-var optimized = Optimizer.Optimize(script, PathCommonJ, PathBlizzardJ);
+var optimized = Obfuscator.Obfuscate(script, PathCommonJ, PathBlizzardJ);
 string optimizedPath = Path.Combine(currentDir, "C:\\Users\\Lasse\\Desktop\\optimized.j");
 File.WriteAllText(optimizedPath, optimized);
 string outputPath = Path.Combine(currentDir, "C:\\Users\\Lasse\\Desktop\\output.j");

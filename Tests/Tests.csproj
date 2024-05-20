@@ -137,7 +137,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\JASS-Obfuscator\JASS-Obfuscator.csproj" />
-    <ProjectReference Include="..\JASS-Optimizer\JASS-Optimizer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

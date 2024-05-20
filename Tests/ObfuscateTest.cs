@@ -1,4 +1,4 @@
-using JASS_Optimizer;
+using JassOptimizer;
 using System.Diagnostics;
 
 namespace Tests
@@ -63,7 +63,7 @@ namespace Tests
             string optimizedPath = Path.Combine(pathOptimizedDir, file);
 
             string script = File.ReadAllText(filePath);
-            script = Optimizer.Optimize(script, pathCommonJ, pathBlizzardJ);
+            script = Obfuscator.Obfuscate(script, pathCommonJ, pathBlizzardJ);
             File.WriteAllText(optimizedPath, script);
 
             Process p = new();
