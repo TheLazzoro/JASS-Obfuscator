@@ -9,13 +9,13 @@ using JASS_Optimizer;
 
 namespace JassOptimizer
 {
-    public class JassAnalyzer
+    internal class JassAnalyzer
     {
         private string _script;
         private JassManipulator jassManipulator = new JassManipulator();
         private JassDefinitions _jassDefinitions;
 
-        public JassAnalyzer(string script, string pathCommonJ, string pathBlizzardJ)
+        internal JassAnalyzer(string script, string pathCommonJ, string pathBlizzardJ)
         {
             _script = script;
             string[] commonJScript = File.ReadAllLines(pathCommonJ);
@@ -23,7 +23,7 @@ namespace JassOptimizer
             _jassDefinitions = new JassDefinitions(commonJScript, blizzardJScript);
         }
 
-        public string Optimize()
+        internal string Obfuscate()
         {
             int scriptLength = _script.Length;
             int offset = 0;
@@ -58,14 +58,13 @@ namespace JassOptimizer
                     c = _script[i];
                     while (!JassSymbols.IsStringLiteral(c))
                     {
-                        i++;
-                        c = _script[i];
                         if(c == '\\') // escape char
                         {
-                            i += 2;
-                            c = _script[i];
+                            i++;
                         }
 
+                        i++;
+                        c = _script[i];
                         keywordIndexStart = i;
                         keywordIndexEnd = i;
                     }
