@@ -62,7 +62,7 @@ namespace JassOptimizer
                     c = _script[i];
                     while (!JassSymbols.IsStringLiteral(c))
                     {
-                        if(c == '\\') // escape char
+                        if (c == '\\') // escape char
                         {
                             i++;
                         }
@@ -108,7 +108,13 @@ namespace JassOptimizer
                     int length = keywordIndexEnd - keywordIndexStart;
                     string keyword = _script.Substring(keywordIndexStart, length);
 
-                    bool isRawNumber = float.TryParse(keyword, out float val) || int.TryParse(keyword.Replace("0x", string.Empty), NumberStyles.HexNumber, _formatProvider, out int val2);
+                    bool isRawNumber = float.TryParse(keyword, out float val);
+                    if (keyword.StartsWith("0x") || keyword.StartsWith("$"))
+                    {
+                        isRawNumber = int.TryParse(keyword.Replace("0x", string.Empty), NumberStyles.HexNumber, _formatProvider, out int val2)
+                                   || int.TryParse(keyword.Replace("$", string.Empty), NumberStyles.HexNumber, _formatProvider, out int val3);
+                    }
+
                     bool isJassKeyword = JassSymbols.IsJassKeyword(keyword);
                     bool isJassDefinition = _jassDefinitions.Keywords.Contains(keyword);
 

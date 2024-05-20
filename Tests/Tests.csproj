@@ -16,6 +16,28 @@
     <None Remove="Resources\JassHelper\common.txt" />
     <None Remove="Resources\JassHelper\jasshelper.conf" />
     <None Remove="Resources\JassHelper\pjass.exe" />
+    <None Remove="Resources\Scripts\war3map10.txt" />
+    <None Remove="Resources\Scripts\war3map11.txt" />
+    <None Remove="Resources\Scripts\war3map12.txt" />
+    <None Remove="Resources\Scripts\war3map13.txt" />
+    <None Remove="Resources\Scripts\war3map14.txt" />
+    <None Remove="Resources\Scripts\war3map15.txt" />
+    <None Remove="Resources\Scripts\war3map16.txt" />
+    <None Remove="Resources\Scripts\war3map17.txt" />
+    <None Remove="Resources\Scripts\war3map18.txt" />
+    <None Remove="Resources\Scripts\war3map19.txt" />
+    <None Remove="Resources\Scripts\war3map2.txt" />
+    <None Remove="Resources\Scripts\war3map20.txt" />
+    <None Remove="Resources\Scripts\war3map21.txt" />
+    <None Remove="Resources\Scripts\war3map22.txt" />
+    <None Remove="Resources\Scripts\war3map23.txt" />
+    <None Remove="Resources\Scripts\war3map3.txt" />
+    <None Remove="Resources\Scripts\war3map4.txt" />
+    <None Remove="Resources\Scripts\war3map5.txt" />
+    <None Remove="Resources\Scripts\war3map6.txt" />
+    <None Remove="Resources\Scripts\war3map7.txt" />
+    <None Remove="Resources\Scripts\war3map8.txt" />
+    <None Remove="Resources\Scripts\war3map9.txt" />
     <None Remove="Resources\war3map1.txt" />
   </ItemGroup>
 
@@ -41,6 +63,69 @@
     <Content Include="Resources\Scripts\war3map1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Scripts\war3map10.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Scripts\war3map11.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Scripts\war3map12.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Scripts\war3map14.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Scripts\war3map15.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Scripts\war3map16.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Scripts\war3map17.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Scripts\war3map18.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Scripts\war3map19.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Scripts\war3map2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Scripts\war3map20.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Scripts\war3map21.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Scripts\war3map22.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Scripts\war3map23.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Scripts\war3map3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Scripts\war3map4.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Scripts\war3map5.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Scripts\war3map6.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Scripts\war3map7.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Scripts\war3map8.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Scripts\war3map9.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -56,6 +141,12 @@
 
   <ItemGroup>
     <Content Include="Resources\JassHelper\pjass.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Scripts\war3map13.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -34,6 +34,28 @@ namespace Tests
 
         [DataTestMethod]
         [DataRow("war3map1.txt")]
+        [DataRow("war3map2.txt")]
+        [DataRow("war3map3.txt")]
+        [DataRow("war3map4.txt")]
+        [DataRow("war3map5.txt")]
+        [DataRow("war3map6.txt")]
+        [DataRow("war3map7.txt")]
+        [DataRow("war3map8.txt")]
+        [DataRow("war3map9.txt")]
+        [DataRow("war3map10.txt")]
+        [DataRow("war3map11.txt")]
+        [DataRow("war3map12.txt")]
+        [DataRow("war3map13.txt")]
+        [DataRow("war3map14.txt")]
+        [DataRow("war3map15.txt")]
+        [DataRow("war3map16.txt")]
+        [DataRow("war3map17.txt")]
+        [DataRow("war3map18.txt")]
+        [DataRow("war3map19.txt")]
+        [DataRow("war3map20.txt")]
+        [DataRow("war3map21.txt")]
+        [DataRow("war3map22.txt")]
+        [DataRow("war3map23.txt")]
         public void Test(string file)
         {
             string dir = Path.Combine(Directory.GetCurrentDirectory(), "Resources/Scripts");
