@@ -15,7 +15,7 @@ namespace JassObfuscator
         public static string Obfuscate(string script, string pathCommonJ, string pathBlizzardJ)
         {
             var analyzer = new JassAnalyzer(script, pathCommonJ, pathBlizzardJ);
-            script = analyzer.Obfuscate();
+            script = analyzer.Analyze();
             var lines = script.Split(
                 new string[] { Environment.NewLine },
                 StringSplitOptions.None
@@ -27,8 +27,7 @@ namespace JassObfuscator
                 var line = lines[i];
                 line = line.Trim();
                 line = Utility.RemoveExcessWhitespace(line);
-                //if (line.Length > 0 && !line.StartsWith("//"))
-                if (!line.StartsWith("//"))
+                if (line.Length > 0 && !line.StartsWith("//"))
                 {
                     sb.Append(line + Environment.NewLine);
                 }

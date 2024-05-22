@@ -49,19 +49,22 @@ namespace JassObfuscator
             }
         }
 
-        internal string Obfuscate()
-        {
-            int scriptLength = _script.Length;
-            int offset = 0;
-            int i = 0;
-            bool isScanningKeyword = false;
-            bool hasKeyword = false;
-            int keywordIndexStart = 0;
-            int keywordIndexEnd = 0;
+        int scriptLength = 0;
+        int offset = 0;
+        int i = 0;
+        bool isScanningKeyword = false;
+        bool hasKeyword = false;
+        int keywordIndexStart = 0;
+        int keywordIndexEnd = 0;
 
-            int stringLiteralStart = 0;
-            int stringLiteralEnd = 0;
-            bool hasStringLiteral = false;
+        int stringLiteralStart = 0;
+        int stringLiteralEnd = 0;
+        bool hasStringLiteral = false;
+        bool stringLiteralIsFunctionCall;
+
+        internal string Analyze()
+        {
+            scriptLength = _script.Length;
 
             while (i < scriptLength)
             {
@@ -73,9 +76,14 @@ namespace JassObfuscator
                     char c_before = _script[i - 1];
                     if (c_before == '/') // is a comment
                     {
+                        keywordIndexStart = keywordIndexEnd; // magic, idk why lol
+                        AddPreceedingPart();
                         while (!JassSymbols.IsNewline(c))
                         {
                             c = _script[i];
+                            keywordIndexStart = i;
+                            keywordIndexEnd = i;
+                            offset = i;
                             i++;
                         }
                     }
@@ -138,7 +146,7 @@ namespace JassObfuscator
                     int length = keywordIndexEnd - keywordIndexStart;
                     string keyword = _script.Substring(keywordIndexStart, length);
 
-                    if(keyword == "native") // in case of imported functions from common.ai
+                    if (keyword == "native") // in case of imported functions from common.ai
                     {
                         i++;
                         c = _script[i];
@@ -171,7 +179,7 @@ namespace JassObfuscator
                     bool isJassKeyword = JassSymbols.IsJassKeyword(keyword);
                     bool isNativeImport = _nativeImports.Contains(keyword);
                     bool isJassDefinition = _jassDefinitions.Keywords.Contains(keyword);
-                    bool stringLiteralIsFunctionCall = true;
+                    stringLiteralIsFunctionCall = true;
 
                     if (hasStringLiteral) // replace 'ExecuteFunc' string with the transformed function name.
                     {
@@ -184,25 +192,13 @@ namespace JassObfuscator
                         {
                             keywordIndexStart -= length;
                             keywordIndexEnd -= length;
-                            //offset = stringLiteralStart - 1;
                         }
                     }
 
                     if ((!isJassKeyword && !isNativeImport && !isJassDefinition && !isRawNumber && stringLiteralIsFunctionCall) || IsEndOfScript(i))
                     {
                         // We have determined that the keyword is eligible for obfuscation
-
-                        length = keywordIndexStart - offset;
-                        string preceedingPart = _script.Substring(offset, length);
-                        offset = keywordIndexEnd;
-
-                        if(hasStringLiteral && stringLiteralIsFunctionCall)
-                        {
-                            offset = stringLiteralEnd;
-                        }
-
-                        JassBlock preceedingBlock = new JassBlock(preceedingPart, false);
-                        _jassManipulator.AddBlock(preceedingBlock);
+                        AddPreceedingPart();
 
                         if (!IsEndOfScript(i))
                         {
@@ -218,6 +214,21 @@ namespace JassObfuscator
             }
 
             return _jassManipulator.GetOptimizedJASS();
+        }
+
+        private void AddPreceedingPart()
+        {
+            int length = keywordIndexStart - offset;
+            string preceedingPart = _script.Substring(offset, length);
+            offset = keywordIndexEnd;
+
+            if (hasStringLiteral && stringLiteralIsFunctionCall)
+            {
+                offset = stringLiteralEnd;
+            }
+
+            JassBlock preceedingBlock = new JassBlock(preceedingPart, false);
+            _jassManipulator.AddBlock(preceedingBlock);
         }
 
         private bool IsEndOfScript(int index)
