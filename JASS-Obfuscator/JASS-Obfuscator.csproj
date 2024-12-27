@@ -8,7 +8,7 @@
     <PackageId>JASS-Obfuscator</PackageId>
     <Authors>LazZ</Authors>
     <PackageProjectUrl>https://github.com/TheLazzoro/JASS-Obfuscator</PackageProjectUrl>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Description>A basic obfuscation tool for JASS scripts in WC3.</Description>
     <RepositoryUrl>https://github.com/TheLazzoro/JASS-Obfuscator</RepositoryUrl>
     <PackageTags>wc3;warcraft 3;wc3 jass;wc3 obfuscation;wc3 obfuscator;</PackageTags>

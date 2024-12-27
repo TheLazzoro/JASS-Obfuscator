@@ -60,7 +60,7 @@ namespace JassObfuscator
         int stringLiteralStart = 0;
         int stringLiteralEnd = 0;
         bool hasStringLiteral = false;
-        bool stringLiteralIsFunctionCall;
+        bool stringLiteralShouldObfuscate;
 
         internal string Analyze()
         {
@@ -179,23 +179,42 @@ namespace JassObfuscator
                     bool isJassKeyword = JassSymbols.IsJassKeyword(keyword);
                     bool isNativeImport = _nativeImports.Contains(keyword);
                     bool isJassDefinition = _jassDefinitions.Keywords.Contains(keyword);
-                    stringLiteralIsFunctionCall = true;
+                    stringLiteralShouldObfuscate = true;
 
                     if (hasStringLiteral) // replace 'ExecuteFunc' string with the transformed function name.
                     {
                         bool isExecuteFunc = _script.Substring(stringLiteralStart - 13, 11) == "ExecuteFunc";
                         length = stringLiteralEnd - stringLiteralStart;
                         keyword = _script.Substring(stringLiteralStart, length);
-                        stringLiteralIsFunctionCall = _functionIdentifiers.Contains(keyword) && isExecuteFunc;
+                        stringLiteralShouldObfuscate = _functionIdentifiers.Contains(keyword) && isExecuteFunc;
 
-                        if (stringLiteralIsFunctionCall) // is string in 'ExecuteFunc' call
+                        if (!stringLiteralShouldObfuscate) // check for TriggerRegisterVariableEvent
+                        {
+                            int functionParenthesis = stringLiteralStart;
+                            int maxSearch = 100;
+                            while (true && maxSearch > 0)
+                            {
+                                char c2 = _script[functionParenthesis];
+                                if (c2 == '(')
+                                {
+                                    break;
+                                }
+                                functionParenthesis--;
+                                maxSearch--;
+                            }
+
+                            string TriggerRegisterVariableEvent = _script.Substring(functionParenthesis - 28, 28);
+                            stringLiteralShouldObfuscate = TriggerRegisterVariableEvent == "TriggerRegisterVariableEvent";
+                        }
+
+                        if (stringLiteralShouldObfuscate) // is string in 'ExecuteFunc' call
                         {
                             keywordIndexStart -= length;
                             keywordIndexEnd -= length;
                         }
                     }
 
-                    if ((!isJassKeyword && !isNativeImport && !isJassDefinition && !isRawNumber && stringLiteralIsFunctionCall) || IsEndOfScript(i))
+                    if ((!isJassKeyword && !isNativeImport && !isJassDefinition && !isRawNumber && stringLiteralShouldObfuscate) || IsEndOfScript(i))
                     {
                         // We have determined that the keyword is eligible for obfuscation
                         AddPreceedingPart();
@@ -222,7 +241,7 @@ namespace JassObfuscator
             string preceedingPart = _script.Substring(offset, length);
             offset = keywordIndexEnd;
 
-            if (hasStringLiteral && stringLiteralIsFunctionCall)
+            if (hasStringLiteral && stringLiteralShouldObfuscate)
             {
                 offset = stringLiteralEnd;
             }
